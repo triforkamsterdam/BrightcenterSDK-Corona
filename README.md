@@ -63,6 +63,9 @@ connector.results[1].completionStatus -- the completion, can either be "COMPLETE
 
 Note that also these calls should be made in a callback function.
 
+### Post the result of a student
+
+
 
 
 

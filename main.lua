@@ -1,6 +1,7 @@
 studentName = display.newText("StudentName", display.contentCenterX, 120, native.systemFont, 16)
 groupName = display.newText("GroupName", display.contentCenterX, 140, native.systemFont, 16)
 resultLabel = display.newText("result", display.contentCenterX, 160, native.systemFont, 16)
+userName = display.newText("result", display.contentCenterX, 180, native.systemFont, 16)
 
 local mime = require("mime")
 local json = require("json")
@@ -35,6 +36,15 @@ end
 
 local myFunction = setLabelsCallback
 connector.loadGroups(myFunction)
+
+
+function userCallbackFunction()
+	userName.text = connector.userDetails.username
+end
+
+local userCallback = userCallbackFunction
+
+connector.loadUserDetails(userCallback)
 
 
 

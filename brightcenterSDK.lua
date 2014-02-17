@@ -3,6 +3,7 @@ module(..., package.seeall)
 local mime = require("mime")
 local json = require("json")
 local URL = "https://tst-brightcenter.trifork.nl/api/"
+userDetails = {}
 groups = {}
 results = {}
 username = {}
@@ -16,14 +17,16 @@ function setCredentials(newUsername, newPassword)
 	password = newPassword
 end
 
-
+--[[
+Loads the user details of the loggedin user
+--]]
 function loadUserDetails(customCallback)
 	function networkListenerGetUserDetails(event)
 		if ( event.isError ) then
-			print "something went wrong with fetching the groups"
+			print "something went wrong with fetching the userDetails"
 		else
 			local string = json.decode(event.response)
-			groups = string
+			userDetails = string
 			customCallback()
 		end
 	end
@@ -62,7 +65,7 @@ function loadResults(assessmentId, studentId, customCallback)
 	--callback: gets the results and puts them in a variable. makes a callback to the given function
 	function networkListenerGetResults(event)
 		if ( event.isError ) then
-			print "something went wrong with fetching the groups"
+			print "something went wrong with fetching the results"
 		else
 			local string = json.decode(event.response)
 			results = string
