@@ -99,6 +99,22 @@ connector.userDetails.lastName --the last name of the user
 ```
 
 
+###sidenotes
+-To have internet acces on adroid use the following in `build.settings`:
+```
+settings =
+{
+   android =
+   {
+      usesPermissions =
+      {
+         "android.permission.INTERNET",
+      },
+   },
+}
+```
+
+-for questions, create an issue with the issue tracker on https://tst-brightcenter.trifork.nl OR create an issue on github
 
 
 
