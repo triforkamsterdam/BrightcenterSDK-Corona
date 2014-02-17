@@ -115,7 +115,7 @@ settings =
 ```
 
 -for questions, create an issue with the issue tracker on https://tst-brightcenter.trifork.nl OR create an issue on github
-
+-You can check main.lua for some examples. YOU SHOULD NOT INCLUDE THIS IN YOUR PROJECT
 
 
 
