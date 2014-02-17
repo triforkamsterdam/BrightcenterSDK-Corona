@@ -22,6 +22,9 @@ connector.setCredentials([username], [password])
 This method sets the credentials of the user that's using the app. If you don't make this call, the connector won't work.
 
 
+
+
+
 ### Get groups of a user
 To get groups of a user you can use the following piece of code:
 ```lua
@@ -64,6 +67,31 @@ connector.results[1].completionStatus -- the completion, can either be "COMPLETE
 Note that also these calls should be made in a callback function.
 
 ### Post the result of a student
+To post a result of a student you can use the following function:
+```lua
+connector.postResult([assessmentId], [studentId], [questionId], [score], [duration], [completionStatus])
+```
+This method returns a string if something went wrong, so you can print the function for error checking.
+
+-`assessmentId` should be a string
+-`studentId` should be a string
+-`questionId` should be a string
+-`score` should be an integer
+-`duration` should be the duration in seconds as an integer
+-`completionStatus` should be either "COMPLETED" or "INCOMPLETE"
+
+###Get the user details
+To get the userdetails you can make the following call:
+```lua
+connector.loadUserDetails([userCallback])
+```
+
+to acces the userdetails you can do something like this:
+```lua
+connector.userDetails.username --the username of the user
+connector.userDetails.firstName --the first name of the user
+connector.userDetails.lastName --the last name of the user
+```
 
 
 
