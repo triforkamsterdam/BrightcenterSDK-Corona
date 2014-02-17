@@ -74,10 +74,15 @@ connector.postResult([assessmentId], [studentId], [questionId], [score], [durati
 This method returns a string if something went wrong, so you can print the function for error checking.
 
 -`assessmentId` should be a string
+
 -`studentId` should be a string
+
 -`questionId` should be a string
+
 -`score` should be an integer
+
 -`duration` should be the duration in seconds as an integer
+
 -`completionStatus` should be either "COMPLETED" or "INCOMPLETE"
 
 ###Get the user details
