@@ -94,6 +94,9 @@ local function onRowTouchGroup( event )
 end
 
 function groupCallbackFunction()
+	initTitlebar()
+	titleBarWidget.isVisible = true
+	listWidget.isVisible = true
 	widgetGroupLogin.isVisible = false;
 	usernameField.isVisible = false;
 	passwordField.isVisible = false;
@@ -117,11 +120,6 @@ local login = function( event )
 	password = passwordField.text
 	connector.setCredentials(username, password)
 	connector.loadGroups(groupCallback)
-	initTitlebar()
-	widgetGroupLogin.isVisible = true
-	titleBarWidget.isVisible = true
-	listWidget.isVisible = true
-	print( "show titlebar please" )
 end
 
 
@@ -146,6 +144,7 @@ function initLists()
 		width = (halfW * 2) / 3, 
 		height = halfH * 2,
 		backgroundColor = {80/255},
+		isBounceEnabled = false,
 		onRowRender = onRowRenderGroup,
 		onRowTouch = onRowTouchGroup,
 	}
@@ -156,16 +155,16 @@ end
 
 function initLoginForm()
 	print("init login form")
-	usernameText = display.newText("Username", halfW - 100, 300, native.systemFont, 16);
-	usernameField = native.newTextField( halfW, 330, 300, 30);
-	usernameField.text = "test@test.com";
+	usernameText = display.newText("Username", halfW - 100, 300, native.systemFont, 16)
+	usernameField = native.newTextField( halfW, 330, 300, 30)
+	usernameField.inputFontSize = 20
 	widgetGroupLogin:insert(usernameText)
 	widgetGroupLogin:insert(usernameField)
 
-	passwordText = display.newText("Password", halfW - 100, 370, native.systemFont, 16);
-	passwordField = native.newTextField( halfW, 400, 300, 30);
-	passwordField.isSecure = "true";
-	passwordField.text = "test";
+	passwordText = display.newText("Password", halfW - 100, 370, native.systemFont, 16)
+	passwordField = native.newTextField( halfW, 400, 300, 30)
+	passwordField.isSecure = "true"
+	passwordField.inputFontSize = 20
 	widgetGroupLogin:insert(passwordText)
 	widgetGroupLogin:insert(passwordField)
 
@@ -234,12 +233,9 @@ function cleanUp()
 	connector.password = {}
 end
 
-
 function initScreens()
-	print("init screens")
 	display.setDefault( "background", 79/255);
 	initLoginForm()
 	initLists()
 	display.setStatusBar( display.HiddenStatusBar );
-	
 end

@@ -28,4 +28,3 @@ brightcenterbutton = widget.newButton
 }
 
 connector.functionAfterSequence = brightcenterAfterSequence;
-

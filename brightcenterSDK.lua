@@ -24,9 +24,11 @@ Loads the user details of the loggedin user
 --]]
 function loadUserDetails(customCallback)
 	function networkListenerGetUserDetails(event)
-		if ( event.isError ) then
+		print( "loading user details!" )
+		if ( event.status == 401 ) then
 			print "something went wrong with fetching the userDetails"
 		else
+			print( event.status)
 			local string = json.decode(event.response)
 			userDetails = string
 			customCallback()
@@ -45,7 +47,7 @@ loads the groups and puts them in a global variable called groups
 --]]
 function loadGroups(customCallbackSucces)
 	function networkListenerGetGroups(event)
-		if ( event.isError ) then
+		if ( event.status == 401 ) then
 			print "something went wrong with fetching the groups"
 		else
 			local string = json.decode(event.response)
