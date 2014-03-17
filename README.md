@@ -4,7 +4,7 @@ BrightcenterSDK-Corona
 Use this SDK to make it easy to communicate with the Brightcenter backend. 
 
 ### Download the project
-To use this SDK you need to download this project. You could also just download the `brightcenterSDK.lua` file.
+To use this SDK you need to download this project. You could also just download the `brightcenterSDK.lua` file and the `brightcenterScreens.lua` file.
 You'll need to include that file into your own project by just adding it to your project folder.
 
 ### Use the SDK
@@ -12,20 +12,25 @@ To use the sdk you need to include the following line of code:
 
 ```lua
 local connector = require("brightcenterSDK")
+local bcScreens = require("brightcenterScreens")
 ```
 
-Now connector is the object which lets you communicate with the Brightcenter backend. However, before you do anything else with the connector you should call:
+Connector is the part which let's you make calls to the backend. with bcScreens you can show the Brightcenter loginscreens.
+To do so you can make a function that calls `bcScreens.initScreens()`. That function should also hide all visible elements.
+Before you call bcScreens.initScreens you MUST provide a callback function to the connector. this function is called when a student is selected.
+you can make all your elements visible again in this function. Your code should look something like this:
 
 ```lua
-connector.setCredentials([username], [password])
+connector.functionAfterSequence = FUNCTIONTHATYOUWANTTOLOAD;
 ```
-This method sets the credentials of the user that's using the app. If you don't make this call, the connector won't work.
+
+`connector.selectedStudent` will now contain the id of the selected student. You will need this id to post or retrieve results from the server.
 
 
 
 
 
-### Get groups of a user
+### Get groups of a user manually (not recommended)
 To get groups of a user you can use the following piece of code:
 ```lua
 connector.loadGroups([callbackfunction])
