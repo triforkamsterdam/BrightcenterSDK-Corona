@@ -24,6 +24,7 @@ local passwordField = {}
 local studentList
 local groupList
 local listWidget = display.newGroup()
+local titleBarWidget = display.newGroup()
 
 --
 --
@@ -48,22 +49,13 @@ local function onRowTouchStudent( event )
 	local phase = event.phase
 	local row = event.target
 	if "release" == phase then
-		print( connector.groups[selectedGroup].students[row.index].id)
+		connector.selectedStudent = connector.groups[selectedGroup].students[row.index].id
+		cleanUp()
 	end
 end
 
 local widgetGroupSelectStudent = display.newGroup()
-studentList = widget.newTableView
-{
-	top = 160,
-	left = (halfW * 2) * 2/3,
-	width = (halfW * 2) * 2/3, 
-	height = halfH * 2,
-	onRowRender = onRowRenderStudent,
-	onRowTouch = onRowTouchStudent,
-}
-studentList.isVisible = false;
-listWidget:insert(studentList)
+
 
 
 --
@@ -101,23 +93,6 @@ local function onRowTouchGroup( event )
 	end
 end
 
-local widgetGroupSelectGroup = display.newGroup()
-groupList = widget.newTableView
-{
-	top = 160,
-	left = (halfW * 2) / 3,
-	width = (halfW * 2) / 3, 
-	height = halfH * 2,
-	backgroundColor = {80/255},
-	onRowRender = onRowRenderGroup,
-	onRowTouch = onRowTouchGroup,
-}
-groupList.isVisible = false;
-listWidget:insert(groupList)
-
-
-
-
 function groupCallbackFunction()
 	widgetGroupLogin.isVisible = false;
 	usernameField.isVisible = false;
@@ -131,7 +106,6 @@ function groupCallbackFunction()
 	end
 	transition.to( groupList, { x = groupList.contentWidth * 0.5, time = 0, transition = easing.outExpo } )
 	transition.to( studentList, { x = studentList.contentWidth, time = 0, transition = easing.outExpo } )
-
 	studentList.isVisible = true;
 	groupList.isVisible = true;
 end
@@ -139,32 +113,61 @@ end
 local groupCallback = groupCallbackFunction;
 
 local login = function( event )
-	username = usernameField.text;
-	password = passwordField.text;
-	connector.setCredentials(username, password);
-	connector.loadGroups(groupCallback);
+	username = usernameField.text
+	password = passwordField.text
+	connector.setCredentials(username, password)
+	connector.loadGroups(groupCallback)
+	initTitlebar()
+	widgetGroupLogin.isVisible = true
+	titleBarWidget.isVisible = true
+	listWidget.isVisible = true
+	print( "show titlebar please" )
 end
-
-
-
-display.setDefault( "background", 79/255);
-display.setStatusBar( display.HiddenStatusBar );
-
 
 
 function initLists()
 
+	studentList = widget.newTableView
+	{
+		top = 160,
+		left = (halfW * 2) * 2/3,
+		width = (halfW * 2) * 2/3, 
+		height = halfH * 2,
+		onRowRender = onRowRenderStudent,
+		onRowTouch = onRowTouchStudent,
+	}
+	studentList.isVisible = false;
+	listWidget:insert(studentList)
+
+	groupList = widget.newTableView
+	{
+		top = 160,
+		left = (halfW * 2) / 3,
+		width = (halfW * 2) / 3, 
+		height = halfH * 2,
+		backgroundColor = {80/255},
+		onRowRender = onRowRenderGroup,
+		onRowTouch = onRowTouchGroup,
+	}
+	groupList.isVisible = false;
+	listWidget:insert(groupList)
+	listWidget.isVisible = false;
 end
 
 function initLoginForm()
+	print("init login form")
 	usernameText = display.newText("Username", halfW - 100, 300, native.systemFont, 16);
 	usernameField = native.newTextField( halfW, 330, 300, 30);
 	usernameField.text = "test@test.com";
+	widgetGroupLogin:insert(usernameText)
+	widgetGroupLogin:insert(usernameField)
 
 	passwordText = display.newText("Password", halfW - 100, 370, native.systemFont, 16);
 	passwordField = native.newTextField( halfW, 400, 300, 30);
 	passwordField.isSecure = "true";
 	passwordField.text = "test";
+	widgetGroupLogin:insert(passwordText)
+	widgetGroupLogin:insert(passwordField)
 
 	local loginButton = widget.newButton
 	{
@@ -176,22 +179,20 @@ function initLoginForm()
 		y = halfH
 	}
 
-	widgetGroupLogin:insert(usernameText)
-	widgetGroupLogin:insert(usernameField)
-	widgetGroupLogin:insert(passwordText)
-	widgetGroupLogin:insert(passwordField)
 	widgetGroupLogin:insert(loginButton)
-	widgetGroupLogin.isVisible = true;
+	widgetGroupLogin.isVisible = true
 end
 
 
 function initTitlebar()
 	local titleBar = display.newRect(halfW, 80 * 0.5, display.contentWidth, 80 )
 	titleBar:setFillColor(1)
+	titleBarWidget:insert(titleBar)
 
 	local bcLogo = display.newImage("brightcenter-logo.png")
 	bcLogo.x = 150
 	bcLogo.y = 40
+	titleBarWidget:insert(bcLogo)
 
 	local groupBar = display.newRect(halfW / 3, 80 * 1.5, display.contentWidth * 1/3, 80 )
 	groupBar:setFillColor(136/255)
@@ -203,6 +204,8 @@ function initTitlebar()
 		parentGroup = groupBar
 	}
 	groupText:setFillColor(217/255)
+	titleBarWidget:insert(groupBar)
+	titleBarWidget:insert(groupText)
 
 	local studentBar = display.newRect((halfW * 2) * 2/3, 80 * 1.5, (display.contentWidth * 2/3), 80 )
 	studentBar:setFillColor(214/255)
@@ -214,12 +217,29 @@ function initTitlebar()
 		parentGroup = groupBar
 	}
 	studentText:setFillColor(67/255)
+	titleBarWidget:insert(studentBar)
+	titleBarWidget:insert(studentText)
+	titleBarWidget.isVisible = true;
+end
+
+
+function cleanUp()
+	connector.functionAfterSequence()
+	listWidget.isVisible = false;
+	titleBarWidget.isVisible = false;
+	widgetGroupLogin.isVisible = false;
+	connector.groups = {}
+	connector.results = {}
+	connector.username = {}
+	connector.password = {}
 end
 
 
 function initScreens()
 	print("init screens")
-	initTitlebar()
+	display.setDefault( "background", 79/255);
 	initLoginForm()
+	initLists()
+	display.setStatusBar( display.HiddenStatusBar );
 	
 end

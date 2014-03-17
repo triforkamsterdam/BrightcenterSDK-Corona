@@ -8,6 +8,8 @@ groups = {}
 results = {}
 username = {}
 password = {}
+selectedStudent = {}
+functionAfterSequence = {}
 
 --[[
 Sets the credentials of the loggedin user
@@ -41,14 +43,14 @@ end
 --[[
 loads the groups and puts them in a global variable called groups
 --]]
-function loadGroups(customCallback)
+function loadGroups(customCallbackSucces)
 	function networkListenerGetGroups(event)
 		if ( event.isError ) then
 			print "something went wrong with fetching the groups"
 		else
 			local string = json.decode(event.response)
 			groups = string
-			customCallback()
+			customCallbackSucces()
 		end
 	end
 	local headers = {}
