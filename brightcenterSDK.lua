@@ -2,14 +2,15 @@ module(..., package.seeall)
 
 local mime = require("mime")
 local json = require("json")
-local URL = "https://tst-brightcenter.trifork.nl/api/"
-userDetails = {}
+--local URL = "https://tst-brightcenter.trifork.nl/api/"
+local URL = "http://localhost:8080/api/"
+userDetails = nil
 groups = {}
 results = {}
-username = {}
-password = {}
+username = nil
+password = nil
 selectedStudent = {}
-functionAfterSequence = {}
+returnScreen = {}
 
 --[[
 Sets the credentials of the loggedin user
@@ -28,13 +29,14 @@ function loadUserDetails(customCallback)
 		if ( event.status == 401 ) then
 			print "something went wrong with fetching the userDetails"
 		else
-			print( event.status)
 			local string = json.decode(event.response)
 			userDetails = string
-			customCallback()
 		end
+		customCallback()
 	end
 	local headers = {}
+	print(username)
+	print(password)
 	headers["Authorization"] = "Basic " .. mime.b64(username .. ":" .. password)
 	local params = {}
 	params.headers = headers
