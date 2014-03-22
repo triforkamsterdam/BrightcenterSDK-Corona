@@ -18,7 +18,7 @@ To load the login screen you can call the following piece of code:
 storyboard.gotoScene("BCLoginScene", {effect = "slideUp"})
 ```
 It loads a new scene on the storybaord.
-When a student is picked, `connector.selectedStudent` will contain the id of the student. You will need this id to post or retrieve results from the server.
+When a student is picked, `connector.selectedStudent` will contain the id of the student. You will need this id to post or retrieve results from the server. When the student is picked, the scene will be closed and your apps returns to the scene that called `"BCLoginScene"`
 
 ### Get the results of a student
 To get the results of a student you can use the following:
