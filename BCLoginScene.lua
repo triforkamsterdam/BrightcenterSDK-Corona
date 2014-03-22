@@ -104,7 +104,6 @@ function scene:willEnterScene( event )
 		usernameField = native.newTextField( halfW, halfH * 0.7 + 30, 300, 30)
 		usernameField.inputFontSize = 20
 		usernameField.cornerRadius = 15
-		usernameField.text = "test@test.com"
 
 	   	local passwordText
 	   	if system.getPreference("locale", "language") == "en" then
@@ -116,7 +115,6 @@ function scene:willEnterScene( event )
 		passwordField = native.newTextField( halfW, halfH * 0.7 + 100, 300, 30)
 		passwordField.isSecure = "true"
 		passwordField.inputFontSize = 20
-		passwordField.text = "test"
 
 	   	local buttonText
 	   	if system.getPreference("locale", "language") == "en" then
