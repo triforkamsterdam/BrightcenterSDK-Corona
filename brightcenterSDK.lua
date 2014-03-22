@@ -2,8 +2,7 @@ module(..., package.seeall)
 
 local mime = require("mime")
 local json = require("json")
---local URL = "https://tst-brightcenter.trifork.nl/api/"
-local URL = "http://localhost:8080/api/"
+local URL = "https://tst-brightcenter.trifork.nl/api/"
 userDetails = nil
 groups = {}
 results = {}
