@@ -4,55 +4,21 @@ BrightcenterSDK-Corona
 Use this SDK to make it easy to communicate with the Brightcenter backend. 
 
 ### Download the project
-To use this SDK you need to download this project. You could also just download the `brightcenterSDK.lua` file and the `brightcenterScreens.lua` file.
-You'll need to include that file into your own project by just adding it to your project folder.
+To use this SDK you need to download this project. You'll need to include the files into your own project by just adding them to your project folder.
 
 ### Use the SDK
 To use the sdk you need to include the following line of code:
-
 ```lua
-local connector = require("brightcenterSDK")
-local bcScreens = require("brightcenterScreens")
+connector = require("brightcenterSDK")
 ```
+Connector is the part which let's you make calls to the backend. It is global so it can be accesed from all files.
 
-Connector is the part which let's you make calls to the backend. with bcScreens you can show the Brightcenter loginscreens.
-To do so you can make a function that calls `bcScreens.initScreens()`. That function should also hide all visible elements.
-Before you call bcScreens.initScreens you MUST provide a callback function to the connector. this function is called when a student is selected.
-you can make all your elements visible again in this function. Your code should look something like this:
-
+To load the login screen you can call the following piece of code:
 ```lua
-connector.functionAfterSequence = FUNCTIONTHATYOUWANTTOLOAD;
+storyboard.gotoScene("BCLoginScene", {effect = "slideUp"})
 ```
-
-`connector.selectedStudent` will now contain the id of the selected student. You will need this id to post or retrieve results from the server.
-
-
-
-
-
-### Get groups of a user manually (not recommended)
-To get groups of a user you can use the following piece of code:
-```lua
-connector.loadGroups([callbackfunction])
-```
-Because Corona makes use of asynchronous network calls, you need to provide a function that serves as a callback. Otherwise your main program will keep executing and the groups will be `nil`. In the callback function you can do whatever you want with the groups that are retrieved from the server. An example:
-```lua
--- this method sets a label to the name of the group
-function myCallback
-    myLabel.text = connector.groups[1].name
-end
-
-local callback = myCallback
-connector.loadGroups(callback)
-```
-
-To retrieve a student from a group you can use the following(also, only use this in a callback function):
-```lua
---retrieves the first student of the first group
-connector.groups[1].students[1].personId --id of the student
-connector.groups[1].students[1].firstName --firstname of the student
-connector.groups[1].students[1].lastName --lastname of the student
-```
+It loads a new scene on the storybaord.
+When a student is picked, `connector.selectedStudent` will contain the id of the student. You will need this id to post or retrieve results from the server.
 
 ### Get the results of a student
 To get the results of a student you can use the following:
@@ -90,18 +56,13 @@ This method returns a string if something went wrong, so you can print the funct
 
 -`completionStatus` should be either "COMPLETED" or "INCOMPLETE"
 
-###Get the user details
-To get the userdetails you can make the following call:
-```lua
-connector.loadUserDetails([userCallback])
-```
-
 to acces the userdetails you can do something like this:
 ```lua
 connector.userDetails.username --the username of the user
 connector.userDetails.firstName --the first name of the user
 connector.userDetails.lastName --the last name of the user
 ```
+Note that the user needs to be logged in to do this! otherwise userDetails will be `nil`
 
 
 ###sidenotes
