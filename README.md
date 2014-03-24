@@ -66,7 +66,7 @@ Note that the user needs to be logged in to do this! otherwise userDetails will 
 
 
 ###sidenotes
--To have internet acces on adroid use the following in `build.settings`:
+-To have internet acces on Android use the following in `build.settings`:
 ```
 settings =
 {
@@ -80,7 +80,7 @@ settings =
 }
 ```
 
--for questions, create an issue with the issue tracker on https://tst-brightcenter.trifork.nl OR create an issue on github
+-for questions, create an issue with the issue tracker on https://tst-brightcenter.trifork.nl
 
 -You can check main.lua for some examples. YOU SHOULD NOT INCLUDE THIS IN YOUR PROJECT
 

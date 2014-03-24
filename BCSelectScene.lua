@@ -136,6 +136,7 @@ local function onRowTouchGroup( event )
 				rowHeight = 60,
 			}
 		end
+		groupList:reloadData()
 	end
 end
 
