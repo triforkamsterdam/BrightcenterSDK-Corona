@@ -184,6 +184,7 @@ local groupCallback = groupCallbackFunction;
 
 function scene:createScene( event )
 	local group = self.view
+	display.setStatusBar( display.HiddenStatusBar )
 	native.setActivityIndicator( true )
 	initTitlebar(group)
 	initLists(group)

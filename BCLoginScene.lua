@@ -56,6 +56,7 @@ local closeScreen = function( event )
 end
 
 function scene:willEnterScene( event )
+	display.setStatusBar( display.HiddenStatusBar )
 	if connector.username ~= nil then
 		print( storyboard.getPrevious())
 		connector.returnScreen = storyboard.getPrevious()
