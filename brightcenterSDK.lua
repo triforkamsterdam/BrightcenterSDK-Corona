@@ -104,7 +104,7 @@ function logout()
 	params.headers = headers
 
 	--network call
-	local resultUrl = "https://tst-brightcenter.trifork.nl/logout"
+	local resultUrl = "http://www.brightcenter.nl/dashboard/logout"
 	network.request( resultUrl, "GET", networkListenerLogout, params)
 end
 
