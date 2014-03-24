@@ -9,6 +9,7 @@ local halfW = display.contentCenterX
 local halfH = display.contentCenterY
 
 local logout = function ( event )
+	connector.logout()
 	connector.username = nil
 	connector.password = nil
 	connector.userDetails = nil

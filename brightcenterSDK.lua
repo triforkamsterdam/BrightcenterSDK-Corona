@@ -90,6 +90,24 @@ function loadResults(assessmentId, studentId, customCallback)
 	network.request( resultUrl, "GET", networkListenerGetResults, params)
 end
 
+function logout()
+	--callback: gets the results and puts them in a variable. makes a callback to the given function
+	function networkListenerLogout(event)
+		print( "succesfully logged out!" )
+	end
+	--set the headers
+	local headers = {}
+	headers["Authorization"] = "Basic " .. mime.b64(username .. ":" .. password)
+
+	--set the params
+	local params = {}
+	params.headers = headers
+
+	--network call
+	local resultUrl = "https://tst-brightcenter.trifork.nl/logout"
+	network.request( resultUrl, "GET", networkListenerLogout, params)
+end
+
 function postResult(assessmentId, studentId, questionId, score, duration, completionStatus)
 	--Check if values are initialised
 	if(score == nil) then
