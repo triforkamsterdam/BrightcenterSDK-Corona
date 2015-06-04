@@ -2,7 +2,7 @@ module(..., package.seeall)
 
 local mime = require("mime")
 local json = require("json")
-local URL = "https://www.brightcenter.nl/dashboard/api/"
+local URL = "https://brightcenter.nl/dashboard/api/"
 userDetails = nil
 groups = {}
 results = {}
